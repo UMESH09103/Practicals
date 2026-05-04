@@ -1,0 +1,49 @@
+Introduction
+
+Fuzzy set theory deals with reasoning that is approximate rather than fixed. In fuzzy sets, elements have degrees of membership ranging between 0 and 1.
+
+Fuzzy Set Operations
+
+Let A and B be fuzzy sets.
+
+🔹 Union
+
+μ(A ∪ B) = max(μA, μB)
+
+🔹 Intersection
+
+μ(A ∩ B) = min(μA, μB)
+
+🔹 Complement
+
+μ(A') = 1 − μA
+
+🔹 Difference
+
+μ(A − B) = min(μA, 1 − μB)
+
+Fuzzy Relations
+
+A fuzzy relation is obtained using Cartesian product:
+
+μ(A × B) = min(μA, μB)
+
+Max-Min Composition
+
+Given two relations R1 and R2:
+
+μ(x, z) = max [ min(R1(x, y), R2(y, z)) ]
+
+Working
+Define fuzzy sets using membership values
+Perform union, intersection, complement, difference
+Create fuzzy relations using Cartesian product
+Apply max-min composition
+Display results
+Result
+
+The program successfully performs fuzzy operations and computes fuzzy relations and their compositions.
+
+Conclusion
+
+Fuzzy set operations help in handling uncertainty, and fuzzy relations allow modeling of complex systems. Max-min composition is useful in decision-making and control systems.

@@ -1,0 +1,4 @@
+1. javac *.java
+2. rmiregistry
+3. java HotelServer (New Terminal)
+4. java HotelClient (New Terminal)

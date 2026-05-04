@@ -1,0 +1,27 @@
+Introduction
+
+Artificial Immune Systems (AIS) are inspired by the biological immune system and are used for pattern recognition and classification tasks.
+
+Concept
+Antigens → Input patterns
+Antibodies → Classifier
+Affinity → Matching quality
+Working
+Input dataset representing structural features is generated
+Data is split into training and testing sets
+A classifier is trained (simulating immune memory)
+The model predicts whether structure is damaged or not
+Accuracy is calculated
+Application
+
+Used in:
+
+Structural health monitoring
+Damage detection in buildings and machines
+Advantages
+Robust to noise
+Good pattern recognition
+Adaptive learning
+Conclusion
+
+The artificial immune system successfully classifies structural damage patterns, demonstrating its effectiveness in pattern recognition tasks.

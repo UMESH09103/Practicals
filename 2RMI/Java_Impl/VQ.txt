@@ -1,0 +1,32 @@
+🔹 Basic
+
+1. What is RMI?
+👉 RMI allows Java objects to communicate across different JVMs.
+
+2. What is a remote interface?
+👉 It defines methods that can be called remotely.
+
+3. Why extend Remote?
+👉 To mark the interface for remote access.
+
+🔹 Intermediate
+
+4. What is RMI registry?
+👉 A naming service that stores remote objects.
+
+5. Why use UnicastRemoteObject?
+👉 To export the object so it can receive remote calls.
+
+6. What is port 1099?
+👉 Default port for RMI registry.
+
+🔹 Advanced
+
+7. Difference between RMI and RPC?
+👉 RMI is Java-specific, RPC is language-independent.
+
+8. What happens if server is not running?
+👉 Client lookup fails with exception.
+
+9. Can RMI work across different languages?
+👉 No, it is Java-specific.

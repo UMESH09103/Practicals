@@ -1,0 +1,28 @@
+🟢 Basic
+
+1. What is ACO?
+👉 Optimization algorithm inspired by ants
+
+2. What is TSP?
+👉 Find shortest route visiting all cities once
+
+🟡 Intermediate
+
+3. What is pheromone?
+👉 Trail that guides ants
+
+4. What is alpha and beta?
+👉 Control importance of pheromone and distance
+
+🟠 Advanced
+
+5. Why evaporation is needed?
+👉 Prevents unlimited accumulation
+
+6. Is ACO optimal?
+👉 Finds near-optimal solution
+
+🔴 Tricky
+
+7. What happens if no evaporation?
+👉 Algorithm may get stuck

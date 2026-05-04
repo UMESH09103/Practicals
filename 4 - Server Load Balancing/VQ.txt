@@ -1,0 +1,32 @@
+🔹 Basic
+
+1. What is load balancing?
+👉 Distributing workload across multiple servers
+
+2. Why is load balancing important?
+👉 To improve performance and avoid overload
+
+3. What is Round Robin?
+👉 Assigns requests sequentially to servers
+
+🔹 Intermediate
+
+4. What is Least Connections?
+👉 Assigns request to server with minimum load
+
+5. Which is better: Round Robin or Least Connections?
+👉 Least Connections (more dynamic)
+
+6. What happens if one server fails?
+👉 Requests should be redirected to other servers
+
+🔹 Advanced
+
+7. What are other load balancing algorithms?
+👉 Weighted Round Robin, IP Hash
+
+8. Where is load balancing used?
+👉 Web servers, cloud computing
+
+9. Can load balancing be hardware-based?
+👉 Yes (load balancers like F5)

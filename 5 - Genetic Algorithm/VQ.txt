@@ -1,0 +1,59 @@
+🟢 Basic
+1. What is Genetic Algorithm?
+
+👉 An optimization technique inspired by natural selection.
+
+2. What is a Neural Network?
+
+👉 A model used for learning patterns from data.
+
+3. What is hybrid GA–NN?
+
+👉 A combination where GA optimizes NN parameters.
+
+🟡 Intermediate
+4. What is fitness function?
+
+👉 It measures how good a solution is (here: error).
+
+5. Why use Mean Squared Error?
+
+👉 It measures prediction accuracy.
+
+6. What is crossover?
+
+👉 Combining two parent solutions.
+
+7. What is mutation?
+
+👉 Random modification to maintain diversity.
+
+🟠 Advanced
+8. Why does error decrease over generations?
+
+👉 Because GA improves solutions through selection and evolution.
+
+9. Why does error become constant later?
+
+👉 Because the algorithm converges to an optimal solution.
+
+10. Why not use gradient descent alone?
+
+👉 It may get stuck in local minima.
+
+🔴 Tricky Questions
+11. What is premature convergence?
+
+👉 When GA stops improving early due to low diversity.
+
+12. How did you avoid it?
+
+👉 By increasing mutation rate and population size.
+
+13. Why is randomness important?
+
+👉 It helps explore the search space.
+
+14. Can GA guarantee best solution?
+
+👉 No, but it finds near-optimal solutions.

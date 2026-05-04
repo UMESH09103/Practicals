@@ -1,0 +1,26 @@
+Introduction
+
+The Clonal Selection Algorithm is inspired by the biological immune system, where antibodies are selected, cloned, and mutated to fight antigens.
+
+Concept
+Antibodies → candidate solutions
+Antigen → problem
+Fitness → solution quality
+Working
+Initialize a population of random solutions
+Evaluate fitness of each solution
+Select best solutions
+Clone selected solutions
+Apply mutation to clones
+Replace weak solutions with improved ones
+Repeat for multiple generations
+Observation
+Fitness improves over generations
+Best solution gradually approaches optimum
+Advantages
+Simple and effective
+Good exploration capability
+Avoids local minima
+Conclusion
+
+The Clonal Selection Algorithm successfully optimizes the solution by iterative cloning and mutation, mimicking the biological immune response.

@@ -1,0 +1,53 @@
+🟦 Introduction
+
+Distributed systems allow multiple computers to communicate and perform tasks together. One way to achieve this is through Remote Procedure Call (RPC), where a client can invoke a function on a remote server as if it were local.
+
+In this program, Python’s built-in XML-RPC module is used to implement a client-server application for string concatenation.
+
+🟦 Objective
+To implement a distributed application using RPC in Python
+To allow the client to send two strings to the server
+To concatenate the strings on the server and return the result
+🟦 Theory
+
+RPC enables communication between different systems by allowing remote function calls.
+
+In Python, XML-RPC:
+
+Uses XML to encode data
+Uses HTTP for communication
+Allows cross-platform interaction
+🟦 System Architecture
+🔹 Client
+Takes input strings
+Sends request to server
+Displays result
+🔹 Server
+Receives strings
+Performs concatenation
+Sends result back
+🟦 Working
+The server is created using SimpleXMLRPCServer and runs on a specific port
+A function concatenate(str1, str2) is defined on the server
+This function is registered so it can be accessed remotely
+The client connects using ServerProxy
+The client sends two strings as input
+The server concatenates the strings
+The result is returned to the client
+The client displays the output
+🟦 Advantages
+Simple and easy to implement
+Platform-independent
+Hides network complexity
+Suitable for basic distributed applications
+🟦 Limitations
+Slower due to XML encoding
+Limited support for complex data
+Less efficient compared to modern frameworks
+🟦 Result
+
+The client successfully sends two strings to the server, and the server concatenates them and returns the correct result.
+
+🟦 Conclusion
+
+The experiment demonstrates how RPC can be used in Python to perform remote computations. XML-RPC simplifies communication between client and server, making distributed application development easier.

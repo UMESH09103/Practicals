@@ -1,0 +1,49 @@
+🟦 Introduction
+
+Hybrid Genetic Algorithm–Neural Network (GA–NN) models combine evolutionary optimization with machine learning to improve prediction accuracy. Genetic Algorithms are used to optimize neural network parameters, such as weights, to achieve better performance.
+
+🟦 Concept
+Neural Network performs prediction
+Genetic Algorithm optimizes the weights
+Fitness function evaluates error (Mean Squared Error)
+🟦 Working
+Initialize a population of random weight vectors
+Pass input data through the neural network
+Compute error using Mean Squared Error
+Select best individuals based on fitness
+Apply crossover to generate new solutions
+Apply mutation to introduce variation
+Repeat for multiple generations
+Obtain optimized weights
+🟦 Observation
+
+From the output:
+
+Initial error: 0.0222
+Final error: 0.00317
+
+👉 Error decreases over generations, showing improvement.
+
+🟦 Analysis
+Early generations show rapid improvement → exploration
+Middle generations refine solutions → exploitation
+Later generations stabilize → convergence
+
+This indicates that the algorithm successfully finds a near-optimal solution.
+
+🟦 Application (Spray Drying of Coconut Milk)
+
+In real-world applications:
+
+Inputs: temperature, airflow, concentration
+Output: product quality
+
+The GA optimizes NN parameters to improve prediction of drying performance.
+
+🟦 Advantages
+Avoids local minima
+Handles complex systems
+Improves prediction accuracy
+🟦 Conclusion
+
+The hybrid GA–NN model successfully optimizes neural network parameters, resulting in reduced error and improved performance. The convergence behavior demonstrates effective optimization.

@@ -1,0 +1,31 @@
+🟢 Basic
+
+1. What is RMI?
+👉 Remote Method Invocation in Java
+
+2. What is remote interface?
+👉 Interface defining remote methods
+
+🟡 Intermediate
+
+3. Why extend Remote interface?
+👉 To enable remote invocation
+
+4. What is UnicastRemoteObject?
+👉 Allows object to receive remote calls
+
+🟠 Advanced
+
+5. What is RMI registry?
+👉 Naming service for remote objects
+
+6. What is stub?
+👉 Client-side proxy
+
+🔴 Tricky
+
+7. What happens if server fails?
+👉 Client cannot access remote methods
+
+8. Is RMI platform independent?
+👉 No, it is Java-specific

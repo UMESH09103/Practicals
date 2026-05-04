@@ -1,0 +1,33 @@
+🔹 Basic
+
+1. What is a fuzzy set?
+👉 A set where elements have membership values between 0 and 1
+
+2. What is membership function?
+👉 It defines the degree to which an element belongs to a set
+
+3. Difference between classical and fuzzy sets?
+👉 Classical: 0 or 1
+👉 Fuzzy: values between 0 and 1
+
+🔹 Intermediate
+
+4. Why use max in union?
+👉 It represents the highest membership
+
+5. Why use min in intersection?
+👉 It represents common membership
+
+6. What is Cartesian product in fuzzy sets?
+👉 It creates a relation using min of memberships
+
+🔹 Advanced
+
+7. What is max-min composition?
+👉 Combination of two relations using min and max operations
+
+8. Where is fuzzy logic used?
+👉 AI systems, control systems, decision making
+
+9. Why fuzzy sets are important?
+👉 They handle uncertainty and imprecise data

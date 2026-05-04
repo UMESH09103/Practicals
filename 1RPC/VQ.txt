@@ -1,0 +1,116 @@
+🟢 Basic Questions (Must Know)
+1. What is RPC?
+
+Answer:
+RPC (Remote Procedure Call) is a protocol that allows a program to execute a function on a remote system as if it were a local function call.
+
+2. What is a distributed system?
+
+Answer:
+A distributed system consists of multiple computers that communicate over a network to perform tasks together.
+
+3. What is the role of client and server?
+
+Answer:
+
+Client: Sends request
+Server: Processes request and returns response
+4. What is factorial?
+
+Answer:
+Factorial of a number n is the product of all positive integers up to n.
+Example: 5! = 5 × 4 × 3 × 2 × 1 = 120
+
+5. What is the value of 0!?
+
+Answer:
+0! = 1
+
+🟡 Intermediate Questions
+6. How does RPC work?
+
+Answer:
+
+Client calls a function
+Request is sent to server
+Server executes the function
+Result is returned to client
+7. What protocol is used in XML-RPC?
+
+Answer:
+HTTP protocol is used for communication.
+
+8. Why is factorial calculated on the server side?
+
+Answer:
+To demonstrate remote computation and reduce load on the client.
+
+9. Why do we convert the result into a string?
+
+Answer:
+Because RPC may not support very large integers, so converting to string avoids overflow issues.
+
+10. What happens if the server is not running?
+
+Answer:
+The client will fail to connect and an error will occur.
+
+🟠 Advanced Questions
+11. What is the time complexity of factorial?
+
+Answer:
+O(n)
+
+12. Why is RPC better than socket programming?
+
+Answer:
+RPC is easier because it hides network details, while sockets require manual handling of communication.
+
+13. What are the limitations of RPC?
+
+Answer:
+
+Network dependency
+Performance overhead
+Limited handling of large data
+14. What happens when input is very large?
+
+Answer:
+
+Computation becomes slow
+Memory usage increases
+Result becomes very large
+15. How can you improve performance?
+
+Answer:
+
+Use multithreading
+Use faster frameworks like gRPC
+Use approximation for large inputs
+🔴 Tricky Questions (High Probability)
+16. Is this truly a distributed system?
+
+Answer:
+Yes, because client and server run as separate processes and communicate over a network.
+
+17. Why not compute factorial on the client itself?
+
+Answer:
+The aim is to demonstrate remote computation using RPC.
+
+18. What happens if multiple clients connect simultaneously?
+
+Answer:
+The server handles requests sequentially unless multithreading is used.
+
+19. Can RPC be used for real-world applications?
+
+Answer:
+Yes, it is widely used in distributed systems and microservices.
+
+20. What is the difference between RPC and REST?
+
+Answer:
+
+RPC → function call based
+REST → resource-based (uses URLs and HTTP methods)

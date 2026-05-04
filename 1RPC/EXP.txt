@@ -1,0 +1,65 @@
+🟦 Introduction
+
+Distributed computing involves multiple systems working together over a network to perform tasks. One important technique used is Remote Procedure Call (RPC), which allows a program to call a function on another machine as if it were a local call.
+
+In this program, a client sends an integer to a server, and the server computes the factorial and returns the result.
+
+🟦 Objective
+To implement a client-server application using RPC
+To perform factorial computation on the server
+To return the result to the client
+🟦 Theory
+
+RPC enables communication between client and server by allowing remote function execution.
+
+In this system:
+
+Client sends a request
+Server processes it
+Server sends back the result
+
+Factorial is defined as:
+
+n! = n × (n−1) × ... × 1
+0! = 1
+
+🟦 System Architecture
+🔹 Client
+Takes input
+Sends request
+Displays result
+🔹 Server
+Receives input
+Computes factorial
+Returns result
+🟦 Working
+Server starts and waits for requests
+Client connects to server
+Client sends integer input
+Server calculates factorial
+Result is converted to string (to avoid overflow issues)
+Server sends result back
+Client displays output
+🟦 Handling Large Inputs
+
+Factorial grows very fast, so:
+
+Large values require more memory and time
+Result is sent as string to avoid limitations
+For very large inputs, approximation can be used
+🟦 Advantages
+Simple communication
+Hides network complexity
+Easy to implement
+Supports distributed systems
+🟦 Limitations
+Depends on network
+Slower than local calls
+Large data transfer can be inefficient
+🟦 Result
+
+The client successfully sends input to the server, and the server computes and returns the factorial correctly.
+
+🟦 Conclusion
+
+RPC simplifies distributed communication by allowing remote execution of functions. This program demonstrates how factorial computation can be performed efficiently in a client-server model.

@@ -1,0 +1,18 @@
+Introduction
+
+Distributed evolutionary algorithms use parallel processing to improve the performance of optimization tasks. DEAP is a Python library that supports evolutionary algorithms with parallel execution.
+
+Working
+Initialize population of candidate solutions
+Evaluate fitness using objective function
+Apply selection, crossover, and mutation
+Use parallel processing to evaluate individuals
+Repeat for multiple generations
+Obtain optimal solution
+Distributed Aspect
+
+Parallel processing is implemented using multiprocessing, allowing multiple individuals to be evaluated simultaneously, improving efficiency.
+
+Conclusion
+
+The distributed evolutionary algorithm efficiently optimizes the solution using parallel computation, reducing execution time.

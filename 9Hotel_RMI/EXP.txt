@@ -1,0 +1,17 @@
+Introduction
+
+Java RMI allows invoking methods on remote objects across networks.
+
+Working
+Server creates remote object
+Registers it in RMI registry
+Client looks up remote object
+Client invokes methods
+Server processes request and returns result
+Features
+Remote method invocation
+Client-server architecture
+Real-time booking management
+Conclusion
+
+The system successfully demonstrates distributed hotel booking using Java RMI.

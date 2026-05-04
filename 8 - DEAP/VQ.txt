@@ -1,0 +1,31 @@
+🟢 Basic
+
+1. What is DEAP?
+👉 A Python library for evolutionary algorithms
+
+2. What is evolutionary algorithm?
+👉 Optimization technique based on natural evolution
+
+🟡 Intermediate
+
+3. What makes this distributed?
+👉 Use of multiprocessing for parallel evaluation
+
+4. What is fitness function?
+👉 Function used to evaluate solutions
+
+🟠 Advanced
+
+5. Why use distributed computing?
+👉 To reduce computation time
+
+6. What is crossover and mutation?
+👉 Operators to generate new solutions
+
+🔴 Tricky
+
+7. Can this run on multiple machines?
+👉 Yes, with proper distributed frameworks
+
+8. Why is DEAP useful?
+👉 Simplifies implementation of evolutionary algorithms

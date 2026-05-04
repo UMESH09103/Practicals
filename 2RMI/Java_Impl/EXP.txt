@@ -1,0 +1,14 @@
+Introduction
+
+RMI (Remote Method Invocation) is a Java-based mechanism that allows a program to invoke methods on an object located in another JVM.
+
+Working
+A remote interface defines the method to be invoked.
+The server implements this interface.
+The server registers the object with the RMI registry.
+The client looks up the remote object.
+The client invokes the method remotely.
+The server processes the request and returns the result.
+Application
+
+This program concatenates two strings sent by the client and returns the result using RMI.

@@ -1,0 +1,26 @@
+Introduction
+
+Load balancing is a technique used in distributed systems to distribute workloads evenly across multiple servers to improve performance and reliability.
+
+Algorithms Used
+🔹 Round Robin
+
+Requests are assigned to servers in a cyclic order.
+
+🔹 Least Connections
+
+Requests are assigned to the server with the least number of active connections.
+
+Working
+Multiple servers are initialized
+Client requests are generated
+Requests are distributed using selected algorithm
+Load is balanced across servers
+Results are displayed
+Advantages
+Improves system performance
+Avoids server overload
+Ensures efficient resource utilization
+Conclusion
+
+The program demonstrates how load balancing algorithms distribute client requests efficiently among servers.

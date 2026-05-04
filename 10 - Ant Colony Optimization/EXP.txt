@@ -1,0 +1,17 @@
+Introduction
+
+Ant Colony Optimization is a probabilistic technique used to solve optimization problems like TSP by simulating ant behavior.
+
+Working
+Initialize pheromone levels
+Each ant constructs a route
+Probability depends on pheromone and distance
+Evaluate route length
+Update pheromone trails
+Repeat for multiple iterations
+Observation
+Distance decreases over iterations
+Algorithm converges to shortest path
+Conclusion
+
+ACO effectively finds near-optimal solutions for TSP using collective intelligence.
