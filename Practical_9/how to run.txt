@@ -1,0 +1,25 @@
+Steps to run Practical 9 - Hotel RMI:
+
+1. Open terminal and navigate to the parent directory:
+   cd C:\Users\Umesh\Downloads\CL - III
+
+2. Compile all Java files (if needed):
+   cd Practical_9
+   javac *.java
+   cd ..
+
+3. Start the RMI Registry (if not already running):
+   rmiregistry
+
+4. Start the Hotel Server (New Terminal):
+   java Practical_9/HotelServer
+
+5. Start the Hotel Client (New Terminal):
+   java Practical_9/HotelClient
+
+6. Use the client menu to:
+   - Option 1: Book a room
+   - Option 2: Cancel Booking
+   - Option 3: Exit
+
+Note: Make sure you run the server and client commands from the parent directory (C:\Users\Umesh\Downloads\CL - III), not from within the Practical_9 folder, since the classes have package names.

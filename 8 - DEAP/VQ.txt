@@ -29,3 +29,355 @@
 
 8. Why is DEAP useful?
 👉 Simplifies implementation of evolutionary algorithms
+Here is a **detailed explanation of Practical 8 (DEAP – Distributed Evolutionary Algorithms)** from your lab manual, along with **code explanation in simple words (for viva)**.
+
+---
+
+# ✅ **Practical 8: DEAP (Distributed Evolutionary Algorithms using Python)**
+
+📄 *From your lab manual (page 47–49)* 
+
+---
+
+# 🔷 1. Problem Statement
+
+👉 Implement a **Distributed Evolutionary Algorithm using DEAP in Python** to solve an optimization problem.
+
+---
+
+# 🎯 2. Objective (Easy Language)
+
+* Use **evolutionary algorithms** to solve problems
+* Apply **parallel/distributed processing**
+* Optimize a function efficiently
+
+---
+
+# 🧠 3. What is DEAP?
+
+👉 **DEAP = Distributed Evolutionary Algorithms in Python**
+
+It is a **Python library** used to:
+
+* Implement **Genetic Algorithms (GA)**
+* Solve **optimization problems**
+* Work with **large/complex data**
+
+---
+
+# 🧬 4. What is Evolutionary Algorithm?
+
+It is inspired by **natural evolution**:
+
+| Concept    | Meaning             |
+| ---------- | ------------------- |
+| Population | Set of solutions    |
+| Individual | One solution        |
+| Fitness    | Quality of solution |
+| Selection  | Choose best         |
+| Crossover  | Combine solutions   |
+| Mutation   | Random change       |
+
+---
+
+# ⚙️ 5. Working of DEAP (Step-by-Step)
+
+1. Create population
+2. Evaluate fitness
+3. Select best individuals
+4. Apply crossover
+5. Apply mutation
+6. Repeat for generations
+7. Get best solution
+
+---
+
+# 💻 6. CODE (From your manual)
+
+```python
+import random
+from deap import base, creator, tools, algorithms
+
+# Define evaluation function
+def eval_func(individual):
+    return sum(x ** 2 for x in individual),
+
+# Create fitness and individual
+creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
+creator.create("Individual", list, fitness=creator.FitnessMin)
+
+toolbox = base.Toolbox()
+
+# Attribute generator
+toolbox.register("attr_float", random.uniform, -5.0, 5.0)
+
+# Structure initializers
+toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_float, n=3)
+toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+
+# Operators
+toolbox.register("evaluate", eval_func)
+toolbox.register("mate", tools.cxBlend, alpha=0.5)
+toolbox.register("mutate", tools.mutGaussian, mu=0, sigma=1, indpb=0.2)
+toolbox.register("select", tools.selTournament, tournsize=3)
+
+# Create population
+population = toolbox.population(n=50)
+
+# Run algorithm
+generations = 20
+
+for gen in range(generations):
+    offspring = algorithms.varAnd(population, toolbox, cxpb=0.5, mutpb=0.1)
+    fits = toolbox.map(toolbox.evaluate, offspring)
+
+    for fit, ind in zip(fits, offspring):
+        ind.fitness.values = fit
+
+    population = toolbox.select(offspring, k=len(population))
+
+# Print best solution
+best = tools.selBest(population, k=1)[0]
+print("Best Individual:", best)
+print("Best Fitness:", best.fitness.values)
+```
+
+---
+
+# 🔍 7. Code Explanation (Line-by-Line)
+
+## 🔹 Import Libraries
+
+```python
+import random
+from deap import base, creator, tools, algorithms
+```
+
+* `random` → random values
+* `deap` → main library
+
+---
+
+## 🔹 Evaluation Function
+
+```python
+def eval_func(individual):
+    return sum(x ** 2 for x in individual),
+```
+
+👉 This function calculates **fitness**
+
+* It minimizes:
+  **f(x) = x² + y² + z²**
+
+✔ Goal → Find values close to **0**
+
+---
+
+## 🔹 Create Fitness & Individual
+
+```python
+creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
+```
+
+* `-1.0` → minimize problem
+
+```python
+creator.create("Individual", list, fitness=creator.FitnessMin)
+```
+
+* Individual = list of numbers
+
+---
+
+## 🔹 Toolbox Setup
+
+```python
+toolbox = base.Toolbox()
+```
+
+---
+
+## 🔹 Attribute Generator
+
+```python
+toolbox.register("attr_float", random.uniform, -5.0, 5.0)
+```
+
+👉 Generates random values between -5 and 5
+
+---
+
+## 🔹 Individual & Population
+
+```python
+toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_float, n=3)
+```
+
+👉 Individual = 3 values (x, y, z)
+
+```python
+toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+```
+
+👉 Population = list of individuals
+
+---
+
+## 🔹 Genetic Operators
+
+### ✔ Evaluation
+
+```python
+toolbox.register("evaluate", eval_func)
+```
+
+### ✔ Crossover
+
+```python
+toolbox.register("mate", tools.cxBlend, alpha=0.5)
+```
+
+👉 Mix two solutions
+
+### ✔ Mutation
+
+```python
+toolbox.register("mutate", tools.mutGaussian, mu=0, sigma=1, indpb=0.2)
+```
+
+👉 Add random noise
+
+### ✔ Selection
+
+```python
+toolbox.register("select", tools.selTournament, tournsize=3)
+```
+
+👉 Choose best from group
+
+---
+
+## 🔹 Create Population
+
+```python
+population = toolbox.population(n=50)
+```
+
+👉 50 individuals
+
+---
+
+## 🔹 Evolution Loop
+
+```python
+for gen in range(generations):
+```
+
+### Step 1: Create new generation
+
+```python
+offspring = algorithms.varAnd(population, toolbox, cxpb=0.5, mutpb=0.1)
+```
+
+### Step 2: Evaluate fitness
+
+```python
+fits = toolbox.map(toolbox.evaluate, offspring)
+```
+
+### Step 3: Assign fitness
+
+```python
+for fit, ind in zip(fits, offspring):
+    ind.fitness.values = fit
+```
+
+### Step 4: Selection
+
+```python
+population = toolbox.select(offspring, k=len(population))
+```
+
+---
+
+## 🔹 Best Solution
+
+```python
+best = tools.selBest(population, k=1)[0]
+```
+
+👉 Gives best optimized result
+
+---
+
+# 📊 8. Output Meaning
+
+Example:
+
+```
+Best Individual: [0.01, -0.02, 0.005]
+Best Fitness: (0.0005,)
+```
+
+✔ Near zero → best solution found
+
+---
+
+# 🔥 9. Viva Questions + Answers
+
+### ❓ What is DEAP?
+
+👉 Python library for evolutionary algorithms
+
+---
+
+### ❓ What is fitness?
+
+👉 Measure of solution quality
+
+---
+
+### ❓ Why weights = (-1.0)?
+
+👉 Because we minimize the function
+
+---
+
+### ❓ What is mutation?
+
+👉 Random change in solution
+
+---
+
+### ❓ What is crossover?
+
+👉 Combine two solutions
+
+---
+
+### ❓ What is selection?
+
+👉 Choose best individuals
+
+---
+
+### ❓ What is population?
+
+👉 Group of candidate solutions
+
+---
+
+# 🎯 10. Final Conclusion
+
+* DEAP helps solve **complex optimization problems**
+* Uses **genetic algorithm concepts**
+* Supports **parallel processing**
+* Efficient for **large-scale problems**
+
+---
+
+If you want, I can also give:
+✅ **Simplified short answer for viva (2 marks)**
+✅ **Flowchart diagram**
+✅ **Working code with output screenshot**
