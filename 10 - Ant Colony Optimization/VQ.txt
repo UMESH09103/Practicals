@@ -26,297 +26,361 @@
 
 7. What happens if no evaporation?
 👉 Algorithm may get stuck
-Here is a **detailed explanation of Practical 10 (MapReduce – Weather Data Analysis)** in a **simple + viva-friendly + code explanation format**.
+I’ll explain your **ACO (Ant Colony Optimization)** practical in a **simple, step-by-step + point-wise way** so you can use it in **exam + viva easily**.
 
 ---
 
-# ✅ **Practical 10: Find Coolest / Hottest Year using MapReduce**
+# 🔷 1. THEORY OF ACO (Easy Explanation)
 
-📄 *From your lab manual (page ~55)* 
+### 👉 What is ACO?
 
----
+* ACO = **Ant Colony Optimization**
+* It is inspired by **real ants behavior**
+* Used to solve **optimization problems** like:
 
-# 🔷 1. Problem Statement
-
-👉 Design a distributed application to:
-
-* Find the **coolest year**
-* Find the **hottest year**
-* Use **weather data**
-* Process using **MapReduce**
+  * Travelling Salesman Problem (TSP)
+  * Shortest path finding
 
 ---
 
-# 🎯 2. Objective (Simple Words)
+## 🐜 Real-Life Idea
 
-* Learn **big data processing**
-* Use **MapReduce**
-* Analyze **weather dataset**
-* Find min & max temperature year
+* Ants move randomly to find food
+* While moving, they leave **pheromone (chemical trail)**
+* Other ants follow paths with **strong pheromone**
+* Shortest path gets more pheromone quickly → becomes best path
 
----
+👉 So:
 
-# 🧠 3. Concept Used
-
-## 🔹 What is MapReduce?
-
-MapReduce = **Distributed data processing model**
-
-### It has 2 main phases:
-
-1. **Map → Process data**
-2. **Reduce → Combine results**
+* **More pheromone = better path**
+* **Short path = more attractive**
 
 ---
 
-# ⚙️ 4. Working of Practical 10
+## 🔁 ACO Working Steps
 
-### ✔ Step-by-step flow:
+1. Initialize pheromone on all paths
+2. Each ant builds a route
+3. Probability depends on:
 
-1. Input weather dataset
-2. Extract **year and temperature**
-3. Mapper emits → (year, temperature)
-4. Shuffle groups same years
-5. Reducer finds:
+   * Pheromone (τ)
+   * Distance (η)
+4. Calculate route length
+5. Update pheromone:
 
-   * Max temp → hottest year
-   * Min temp → coolest year
-
----
-
-# 📊 5. Example Input
-
-```
-2010,35
-2010,38
-2011,30
-2011,42
-2012,25
-```
+   * Evaporation (reduce old pheromone)
+   * Add new pheromone (good paths get more)
+6. Repeat for many iterations
+7. Best path is selected
 
 ---
 
-# 🔄 6. MapReduce Flow
+## 📌 Formula (Important for Viva)
 
-### 🔹 Mapper Output:
+Probability of choosing next city:
 
-```
-(2010,35)
-(2010,38)
-(2011,30)
-(2011,42)
-(2012,25)
-```
-
----
-
-### 🔹 After Shuffle:
-
-```
-2010 → [35,38]
-2011 → [30,42]
-2012 → [25]
-```
-
----
-
-### 🔹 Reducer Output:
-
-```
-2010 → max=38
-2011 → max=42  ✅ hottest
-2012 → min=25  ✅ coolest
-```
-
----
-
-# 💻 7. Python Code (Simple Version)
-
-```python
-# Mapper Function
-def mapper(data):
-    result = []
-    for line in data:
-        year, temp = line.split(',')
-        result.append((year, int(temp)))
-    return result
-
-
-# Reducer Function
-def reducer(mapped_data):
-    temp_dict = {}
-
-    # Grouping
-    for year, temp in mapped_data:
-        if year not in temp_dict:
-            temp_dict[year] = []
-        temp_dict[year].append(temp)
-
-    # Find min & max
-    result = {}
-    for year, temps in temp_dict.items():
-        result[year] = {
-            "max": max(temps),
-            "min": min(temps)
-        }
-
-    return result
-
-
-# Main Program
-data = [
-    "2010,35",
-    "2010,38",
-    "2011,30",
-    "2011,42",
-    "2012,25"
+[
+P_{ij} = \frac{(\tau_{ij})^\alpha \cdot (1/d_{ij})^\beta}{\sum (\tau^\alpha \cdot (1/d)^\beta)}
 ]
 
-mapped = mapper(data)
-reduced = reducer(mapped)
+Where:
 
-# Find hottest & coolest year
-hottest_year = max(reduced, key=lambda x: reduced[x]["max"])
-coolest_year = min(reduced, key=lambda x: reduced[x]["min"])
-
-print("Hottest Year:", hottest_year, reduced[hottest_year])
-print("Coolest Year:", coolest_year, reduced[coolest_year])
-```
+* τ = pheromone
+* d = distance
+* α = pheromone importance
+* β = distance importance
 
 ---
 
-# 🔍 8. Code Explanation (Very Important for Viva)
+# 🔷 2. CODE EXPLANATION (Line by Line)
 
 ---
 
-## 🔹 Mapper Function
+## 🔹 CELL 0: Import Libraries
 
 ```python
-def mapper(data):
+import numpy as np
+import random
+import matplotlib.pyplot as plt
 ```
 
-👉 Takes input data
+👉 Meaning:
+
+* `numpy` → mathematical operations
+* `random` → random selection of cities
+* `matplotlib` → graph plotting
+
+---
+
+## 🔹 CELL 1: Create Cities + Distance Matrix
 
 ```python
-year, temp = line.split(',')
+np.random.seed(42)
+cities = np.random.rand(10, 2) * 10
 ```
 
-👉 Split year and temperature
+👉 Explanation:
+
+* Generate **10 random cities**
+* Each city has coordinates (x, y)
+
+---
+
+### Distance Matrix
 
 ```python
-result.append((year, int(temp)))
+def distance_matrix(cities):
 ```
 
-👉 Output key-value pair → (year, temp)
-
----
-
-## 🔹 Reducer Function
+👉 This function calculates **distance between every pair of cities**
 
 ```python
-def reducer(mapped_data):
+dist[i][j] = np.linalg.norm(cities[i] - cities[j])
 ```
 
-### Group data
+👉 Meaning:
+
+* Uses **Euclidean distance formula**
+
+---
+
+## 🔹 CELL 2: Parameters
 
 ```python
-temp_dict[year].append(temp)
+num_ants = 20
+num_iterations = 100
+alpha = 1
+beta = 2
+evaporation = 0.8
+Q = 50
 ```
 
-👉 Store all temps of same year
+👉 Explanation:
+
+| Parameter   | Meaning                       |
+| ----------- | ----------------------------- |
+| num_ants    | Number of ants                |
+| iterations  | How many times algorithm runs |
+| alpha       | importance of pheromone       |
+| beta        | importance of distance        |
+| evaporation | pheromone reduction           |
+| Q           | pheromone constant            |
 
 ---
 
-### Find min & max
+### Pheromone Initialization
 
 ```python
-max(temps)
-min(temps)
+pheromone = np.ones((num_cities, num_cities)) * 0.01
 ```
 
-👉 Gives:
-
-* Highest temperature
-* Lowest temperature
+👉 Initially all paths have **small pheromone**
 
 ---
 
-## 🔹 Find Final Result
+## 🔹 CELL 3: Route Length Function
 
 ```python
-hottest_year = max(reduced, key=lambda x: reduced[x]["max"])
+def route_length(route):
 ```
 
-👉 Year with highest temperature
+👉 Calculates **total distance of path**
 
 ```python
-coolest_year = min(reduced, key=lambda x: reduced[x]["min"])
+length += dist_matrix[route[i]][route[(i+1) % len(route)]]
 ```
 
-👉 Year with lowest temperature
+👉 Important:
+
+* `%` ensures **return to starting city**
+* Makes it a **complete cycle**
 
 ---
 
-# 📊 9. Output Example
+## 🔹 CELL 4: Main ACO Algorithm
 
+### Initialize best values
+
+```python
+best_route = None
+best_length = float('inf')
 ```
-Hottest Year: 2011 {'max': 42, 'min': 30}
-Coolest Year: 2012 {'max': 25, 'min': 25}
+
+👉 Meaning:
+
+* Start with worst possible distance
+
+---
+
+### Loop for iterations
+
+```python
+for iteration in range(num_iterations):
+```
+
+👉 Repeat process many times
+
+---
+
+### Each ant builds route
+
+```python
+route = [random.choice(range(num_cities))]
+```
+
+👉 Start from random city
+
+---
+
+### Selecting next city
+
+```python
+tau = pheromone[current][j] ** alpha
+```
+
+👉 Uses pheromone
+
+👉 (Missing part but expected):
+
+```python
+eta = (1 / dist_matrix[current][j]) ** beta
+```
+
+👉 Uses distance
+
+---
+
+### Probability-based selection
+
+👉 Ant chooses next city based on:
+
+* High pheromone
+* Short distance
+
+---
+
+### Store routes
+
+```python
+all_routes.append(route)
 ```
 
 ---
 
-# 🔥 10. Viva Questions + Answers
+### Update best route
 
-### ❓ What is MapReduce?
+```python
+if length < best_length:
+    best_length = length
+    best_route = route
+```
 
-👉 A programming model for big data processing
-
----
-
-### ❓ What does mapper do?
-
-👉 Converts input into key-value pairs
+👉 Keeps best solution
 
 ---
 
-### ❓ What does reducer do?
+### Pheromone Update (Important Concept)
 
-👉 Aggregates results
+1. **Evaporation**
 
----
+```python
+pheromone *= evaporation
+```
 
-### ❓ Why MapReduce is used?
+2. **Deposit**
 
-👉 To process large data efficiently
+```python
+pheromone[i][j] += Q / route_length
+```
 
----
-
-### ❓ What is shuffle phase?
-
-👉 Groups same keys together
-
----
-
-### ❓ What is key-value pair?
-
-👉 Data format → (key, value)
+👉 Shorter route → more pheromone
 
 ---
 
-# 🎯 11. Conclusion
+## 🔹 CELL 5: Plot Graph
 
-* MapReduce helps process **large datasets**
-* Efficient for **weather analysis**
-* Can find **patterns like hottest/coolest year**
-* Works in **distributed systems**
+```python
+plt.plot(history, label="Best Distance")
+```
+
+👉 Shows:
+
+* Best distance over time
+* Algorithm improvement
 
 ---
 
-If you want next:
-✅ Hadoop Java version (exact practical format)
-✅ Diagram for exam
-✅ Short 2-mark answers
-✅ Viva handwritten notes style
+## 🔹 CELL 6: Plot Best Route
 
-Just tell 👍
+```python
+best_route_cycle = best_route + [best_route[0]]
+```
+
+👉 Makes path circular
+
+```python
+plt.plot(coords[:,0], coords[:,1])
+```
+
+👉 Draws final optimized path
+
+---
+
+# 🔷 3. FINAL OUTPUT
+
+You get:
+
+* 📉 Convergence graph
+* 🛣️ Best route found
+* 📏 Minimum distance
+
+---
+
+# 🔷 4. VIVA QUESTIONS (IMPORTANT)
+
+### Q1: What is ACO?
+
+👉 Nature-inspired optimization technique based on ants.
+
+---
+
+### Q2: What is pheromone?
+
+👉 Chemical trail used to guide ants.
+
+---
+
+### Q3: Role of alpha and beta?
+
+* α → pheromone importance
+* β → distance importance
+
+---
+
+### Q4: Why evaporation?
+
+👉 Prevents over-convergence and helps exploration.
+
+---
+
+### Q5: Where is ACO used?
+
+* Routing
+* Scheduling
+* Network optimization
+
+---
+
+# 🔷 5. SIMPLE SUMMARY
+
+👉 Ants find shortest path using pheromone
+👉 Algorithm copies this behavior
+👉 Best path gets stronger over time
+👉 Finally gives optimal solution
+
+---
+
+If you want next, I can give:
+✅ Full corrected working code
+✅ Viva answers in **Hinglish**
+✅ Short notes for exam writing
