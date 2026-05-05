@@ -29,3 +29,318 @@
 
 8. Is RMI platform independent?
 👉 No, it is Java-specific
+Here is a **detailed, easy explanation of Practical 9 (Hotel Booking using Java RMI)** in a **simple + viva-ready format**.
+
+---
+
+# ✅ **Practical 9: Distributed Hotel Booking System using RMI**
+
+📄 *From your lab manual (page ~49)* 
+
+---
+
+# 🔷 1. Problem Statement
+
+👉 Design a **distributed hotel booking system** where:
+
+* Server manages hotel room data
+* Client can:
+
+  * Book a room
+  * Cancel a booking
+
+---
+
+# 🎯 2. Objective (Simple Words)
+
+* Understand **distributed systems**
+* Learn **RMI (Remote Method Invocation)**
+* Create **client-server application**
+* Perform remote operations like booking
+
+---
+
+# 🧠 3. What is RMI?
+
+👉 **RMI = Remote Method Invocation**
+
+✔ It allows:
+
+* A program (client) to call a method on another machine (server)
+
+👉 Simple meaning:
+
+> “Client calls server function like it is local”
+
+---
+
+# 🏨 4. Real-Life Example
+
+* You open a hotel app (client)
+* Request booking
+* Server checks availability
+* Server confirms booking
+
+---
+
+# ⚙️ 5. System Architecture
+
+### 🔹 Components:
+
+1. **Client**
+
+   * Sends request (book/cancel)
+
+2. **Server**
+
+   * Stores room data
+   * Processes request
+
+3. **RMI Registry**
+
+   * Connects client and server
+
+4. **Remote Interface**
+
+   * Defines methods
+
+---
+
+# 🔄 6. Working Flow (Step-by-Step)
+
+1. Client sends request
+2. RMI sends request to server
+3. Server processes request
+4. Server returns result
+5. Client displays output
+
+---
+
+# 💻 7. Code Structure (Important)
+
+There are **4 main parts**:
+
+---
+
+## 🔹 1. Remote Interface
+
+```java
+import java.rmi.*;
+public interface Hotel extends Remote {
+    String bookRoom(String name) throws RemoteException;
+    String cancelBooking(String name) throws RemoteException;
+}
+```
+
+### 👉 Explanation:
+
+* Defines methods
+* `Remote` → required for RMI
+* Methods must throw `RemoteException`
+
+---
+
+## 🔹 2. Server Implementation
+
+```java
+import java.rmi.server.UnicastRemoteObject;
+import java.rmi.RemoteException;
+import java.util.*;
+
+public class HotelImpl extends UnicastRemoteObject implements Hotel {
+
+    List<String> bookings;
+
+    protected HotelImpl() throws RemoteException {
+        bookings = new ArrayList<>();
+    }
+
+    public String bookRoom(String name) {
+        bookings.add(name);
+        return "Room booked for " + name;
+    }
+
+    public String cancelBooking(String name) {
+        if(bookings.remove(name)) {
+            return "Booking cancelled for " + name;
+        }
+        return "No booking found";
+    }
+}
+```
+
+### 👉 Explanation:
+
+* Stores bookings in list
+* `bookRoom()` → adds name
+* `cancelBooking()` → removes name
+
+---
+
+## 🔹 3. Server Main
+
+```java
+import java.rmi.Naming;
+
+public class Server {
+    public static void main(String[] args) {
+        try {
+            HotelImpl obj = new HotelImpl();
+            Naming.rebind("HotelService", obj);
+            System.out.println("Server is running...");
+        } catch(Exception e) {
+            System.out.println(e);
+        }
+    }
+}
+```
+
+### 👉 Explanation:
+
+* Creates server object
+* Registers service using `Naming.rebind`
+* Makes server available
+
+---
+
+## 🔹 4. Client Code
+
+```java
+import java.rmi.Naming;
+import java.util.Scanner;
+
+public class Client {
+    public static void main(String[] args) {
+        try {
+            Hotel hotel = (Hotel) Naming.lookup("rmi://localhost/HotelService");
+
+            Scanner sc = new Scanner(System.in);
+
+            System.out.println("1. Book Room");
+            System.out.println("2. Cancel Booking");
+
+            int choice = sc.nextInt();
+            sc.nextLine();
+
+            System.out.print("Enter name: ");
+            String name = sc.nextLine();
+
+            if(choice == 1) {
+                System.out.println(hotel.bookRoom(name));
+            } else {
+                System.out.println(hotel.cancelBooking(name));
+            }
+
+        } catch(Exception e) {
+            System.out.println(e);
+        }
+    }
+}
+```
+
+### 👉 Explanation:
+
+* Connects to server
+* Takes user input
+* Calls remote methods
+
+---
+
+# 🔍 8. Key Concepts (VERY IMPORTANT FOR VIVA)
+
+| Concept             | Meaning                  |
+| ------------------- | ------------------------ |
+| Remote Interface    | Defines methods          |
+| Stub                | Client-side proxy        |
+| Skeleton            | Server-side handler      |
+| Registry            | Connects client & server |
+| UnicastRemoteObject | Makes object remote      |
+
+---
+
+# 📊 9. Output Example
+
+```text
+Server is running...
+
+Client:
+1. Book Room
+Enter name: Umesh
+Room booked for Umesh
+
+2. Cancel Booking
+Enter name: Umesh
+Booking cancelled for Umesh
+```
+
+---
+
+# 🔥 10. Viva Questions + Answers
+
+### ❓ What is RMI?
+
+👉 Java API for remote method calling
+
+---
+
+### ❓ What is Remote Interface?
+
+👉 Interface that declares remote methods
+
+---
+
+### ❓ Why RemoteException?
+
+👉 To handle network errors
+
+---
+
+### ❓ What is stub?
+
+👉 Client-side object
+
+---
+
+### ❓ What is registry?
+
+👉 Stores remote objects
+
+---
+
+### ❓ Difference between local & remote call?
+
+👉 Remote call works over network
+
+---
+
+# 🎯 11. Advantages
+
+✔ Easy distributed programming
+✔ Reuse code
+✔ Transparent communication
+
+---
+
+# ⚠️ 12. Limitations
+
+❌ Slower than local calls
+❌ Network dependency
+❌ More setup required
+
+---
+
+# 🏁 13. Conclusion
+
+* RMI enables **distributed applications**
+* Client and server communicate easily
+* Used in **real-world systems like booking, banking**
+
+---
+
+If you want next:
+✅ Diagram for exam
+✅ Short 2-mark answers
+✅ Step-by-step execution commands
+✅ How to run in VS Code
+
+Just tell 👍

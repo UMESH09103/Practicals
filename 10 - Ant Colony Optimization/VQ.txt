@@ -26,3 +26,297 @@
 
 7. What happens if no evaporation?
 👉 Algorithm may get stuck
+Here is a **detailed explanation of Practical 10 (MapReduce – Weather Data Analysis)** in a **simple + viva-friendly + code explanation format**.
+
+---
+
+# ✅ **Practical 10: Find Coolest / Hottest Year using MapReduce**
+
+📄 *From your lab manual (page ~55)* 
+
+---
+
+# 🔷 1. Problem Statement
+
+👉 Design a distributed application to:
+
+* Find the **coolest year**
+* Find the **hottest year**
+* Use **weather data**
+* Process using **MapReduce**
+
+---
+
+# 🎯 2. Objective (Simple Words)
+
+* Learn **big data processing**
+* Use **MapReduce**
+* Analyze **weather dataset**
+* Find min & max temperature year
+
+---
+
+# 🧠 3. Concept Used
+
+## 🔹 What is MapReduce?
+
+MapReduce = **Distributed data processing model**
+
+### It has 2 main phases:
+
+1. **Map → Process data**
+2. **Reduce → Combine results**
+
+---
+
+# ⚙️ 4. Working of Practical 10
+
+### ✔ Step-by-step flow:
+
+1. Input weather dataset
+2. Extract **year and temperature**
+3. Mapper emits → (year, temperature)
+4. Shuffle groups same years
+5. Reducer finds:
+
+   * Max temp → hottest year
+   * Min temp → coolest year
+
+---
+
+# 📊 5. Example Input
+
+```
+2010,35
+2010,38
+2011,30
+2011,42
+2012,25
+```
+
+---
+
+# 🔄 6. MapReduce Flow
+
+### 🔹 Mapper Output:
+
+```
+(2010,35)
+(2010,38)
+(2011,30)
+(2011,42)
+(2012,25)
+```
+
+---
+
+### 🔹 After Shuffle:
+
+```
+2010 → [35,38]
+2011 → [30,42]
+2012 → [25]
+```
+
+---
+
+### 🔹 Reducer Output:
+
+```
+2010 → max=38
+2011 → max=42  ✅ hottest
+2012 → min=25  ✅ coolest
+```
+
+---
+
+# 💻 7. Python Code (Simple Version)
+
+```python
+# Mapper Function
+def mapper(data):
+    result = []
+    for line in data:
+        year, temp = line.split(',')
+        result.append((year, int(temp)))
+    return result
+
+
+# Reducer Function
+def reducer(mapped_data):
+    temp_dict = {}
+
+    # Grouping
+    for year, temp in mapped_data:
+        if year not in temp_dict:
+            temp_dict[year] = []
+        temp_dict[year].append(temp)
+
+    # Find min & max
+    result = {}
+    for year, temps in temp_dict.items():
+        result[year] = {
+            "max": max(temps),
+            "min": min(temps)
+        }
+
+    return result
+
+
+# Main Program
+data = [
+    "2010,35",
+    "2010,38",
+    "2011,30",
+    "2011,42",
+    "2012,25"
+]
+
+mapped = mapper(data)
+reduced = reducer(mapped)
+
+# Find hottest & coolest year
+hottest_year = max(reduced, key=lambda x: reduced[x]["max"])
+coolest_year = min(reduced, key=lambda x: reduced[x]["min"])
+
+print("Hottest Year:", hottest_year, reduced[hottest_year])
+print("Coolest Year:", coolest_year, reduced[coolest_year])
+```
+
+---
+
+# 🔍 8. Code Explanation (Very Important for Viva)
+
+---
+
+## 🔹 Mapper Function
+
+```python
+def mapper(data):
+```
+
+👉 Takes input data
+
+```python
+year, temp = line.split(',')
+```
+
+👉 Split year and temperature
+
+```python
+result.append((year, int(temp)))
+```
+
+👉 Output key-value pair → (year, temp)
+
+---
+
+## 🔹 Reducer Function
+
+```python
+def reducer(mapped_data):
+```
+
+### Group data
+
+```python
+temp_dict[year].append(temp)
+```
+
+👉 Store all temps of same year
+
+---
+
+### Find min & max
+
+```python
+max(temps)
+min(temps)
+```
+
+👉 Gives:
+
+* Highest temperature
+* Lowest temperature
+
+---
+
+## 🔹 Find Final Result
+
+```python
+hottest_year = max(reduced, key=lambda x: reduced[x]["max"])
+```
+
+👉 Year with highest temperature
+
+```python
+coolest_year = min(reduced, key=lambda x: reduced[x]["min"])
+```
+
+👉 Year with lowest temperature
+
+---
+
+# 📊 9. Output Example
+
+```
+Hottest Year: 2011 {'max': 42, 'min': 30}
+Coolest Year: 2012 {'max': 25, 'min': 25}
+```
+
+---
+
+# 🔥 10. Viva Questions + Answers
+
+### ❓ What is MapReduce?
+
+👉 A programming model for big data processing
+
+---
+
+### ❓ What does mapper do?
+
+👉 Converts input into key-value pairs
+
+---
+
+### ❓ What does reducer do?
+
+👉 Aggregates results
+
+---
+
+### ❓ Why MapReduce is used?
+
+👉 To process large data efficiently
+
+---
+
+### ❓ What is shuffle phase?
+
+👉 Groups same keys together
+
+---
+
+### ❓ What is key-value pair?
+
+👉 Data format → (key, value)
+
+---
+
+# 🎯 11. Conclusion
+
+* MapReduce helps process **large datasets**
+* Efficient for **weather analysis**
+* Can find **patterns like hottest/coolest year**
+* Works in **distributed systems**
+
+---
+
+If you want next:
+✅ Hadoop Java version (exact practical format)
+✅ Diagram for exam
+✅ Short 2-mark answers
+✅ Viva handwritten notes style
+
+Just tell 👍
